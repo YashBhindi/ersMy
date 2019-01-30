@@ -1,0 +1,47 @@
+<div class="container-fluid">
+
+
+
+  <form [formGroup]="registrationForm" class="card-body px-lg-5 pt-0">
+    <h5 class="card-header info-color white-text text-center py-4" style="color: #757575;">
+      <strong>Sign up </strong>
+    </h5>
+
+
+    <div class="form-group">
+
+      <label for="mo">Mobile No.:</label>
+      <input type="number" id="mo" formControlName="alternativeMo" class="form-control">
+
+      <button type="button" class="btn btn-secondary btn-sm m-2" (click)="addAlternativeMobile()">Add Mobile no.</button>
+      <div  formArrayName="alternativeMo" *ngFor="let mo of alternativeMo.controls; let i=index">
+
+        <div  *ngIf="mo.get('type').value =='radio'">
+          <div >
+            <input type="text" placeholder="Type the question" formControlName="mo.data.question" >
+            <label> {{mo.get('data.question').value}}</label>
+            <button (click)="addLabel(mo)">Add label</button>
+            <div *ngFor="let label of mo.get('data.labels').value;">
+              <input type="text" name="{{mo.get('data.name').value}}">
+              
+            </div>
+
+          </div>
+        </div>
+
+        <div *ngIf="mo.get('type').value =='text'">
+          <div>
+            <label> {{mo.get('data.question').value}}</label>
+            <label> {{mo.get('data.answer').value}}</label>
+            
+
+          </div>
+        </div>
+        
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-info my-4 btn-block">Submit</button>
+  </form>
+  {{this.registrationForm.value | json}}
+</div>
